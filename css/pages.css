@@ -116,7 +116,7 @@
   color: #f6ad8d;
 }
 
-@media (min-width: 860px) {
+@media (min-width: 992px) {
   .hero-content {
     max-width: 1140px !important;
   }
@@ -820,5 +820,189 @@
 
   .featured-stat-box span {
     font-size: 0.65rem !important;
+  }
+}
+
+/* Audited Financials & Resources Responsive Design */
+.audit-overview-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+  margin-bottom: var(--space-8);
+}
+
+.audit-overview-header {
+  padding: var(--space-6);
+  background: linear-gradient(135deg, #0a4db3 0%, #07357c 100%);
+  color: #ffffff;
+}
+
+.audit-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-surface-subtle);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.audit-metric-item {
+  background: #ffffff;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.audit-metric-item strong {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.audit-metric-item span {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+  display: block;
+}
+
+.audit-records-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  padding: var(--space-6);
+}
+
+.audit-year-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.audit-year-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--color-primary);
+}
+
+.audit-year-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10, 77, 179, 0.1);
+  color: var(--color-primary);
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.audit-spend-bar {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: #e2e8f0;
+  overflow: hidden;
+  display: flex;
+  margin: 10px 0;
+}
+
+.audit-spend-fill-prog {
+  background: #16a34a;
+  height: 100%;
+}
+
+.audit-spend-fill-admin {
+  background: #d97706;
+  height: 100%;
+}
+
+.audit-spend-fill-fund {
+  background: #0284c7;
+  height: 100%;
+}
+
+.resource-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+  margin-top: var(--space-3);
+  gap: 8px;
+}
+
+@media (max-width: 992px) {
+  .audit-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .audit-records-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .filter-pills {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .filter-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-bar input[type="text"],
+  #resourceSearchInput {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .audit-metrics-grid {
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+  .audit-overview-header {
+    padding: var(--space-4);
+  }
+  .audit-records-grid {
+    padding: var(--space-4);
+  }
+  .audit-year-card {
+    padding: var(--space-4);
+  }
+  .resource-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .resource-card-footer .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
   }
 }

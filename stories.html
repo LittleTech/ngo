@@ -201,7 +201,6 @@
             <li><a href="resources.html" class="footer-link">Audited Financials</a></li>
             <li><a href="safeguarding.html" class="footer-link">Child Safeguarding</a></li>
             <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
-            <li><a href="admin/" class="footer-link" style="color: rgba(255,255,255,0.45); font-size: 0.8rem;">Staff Portal</a></li>
           </ul>
         </div>
       </div>
@@ -225,11 +224,13 @@
   <script src="js/components/scroll-animations.js"></script>
   <script src="js/components/search.js"></script>
   <script src="js/components/donation.js"></script>
+  <script src="js/components/whatsapp-widget.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       if (window.initNavigation) window.initNavigation();
       if (window.initScrollAnimations) window.initScrollAnimations();
       if (window.initSearch) window.initSearch();
+      if (window.initWhatsAppWidget) window.initWhatsAppWidget();
 
       const store = window.katosiStore;
       const stories = store.getStories();

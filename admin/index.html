@@ -66,10 +66,12 @@
   </div>
 
   <!-- 2. AUTHENTICATED ADMIN CMS DASHBOARD -->
+  <div class="admin-sidebar-backdrop" id="adminSidebarBackdrop"></div>
   <div id="adminAppLayout" class="admin-layout" style="display: none;">
     <!-- Admin Sidebar -->
     <aside class="admin-sidebar">
       <div class="admin-sidebar-header">
+        <button type="button" class="admin-sidebar-close" id="adminSidebarClose" aria-label="Close Sidebar">&times;</button>
         <a href="../index.html" class="brand-logo" style="color: #ffffff; font-size: 1.15rem; display: flex; align-items: center; gap: 10px;">
           <img src="../images/logo.png" alt="THECCODA Logo" style="height: 38px; width: auto; background: white; border-radius: 50%; padding: 2px;" />
           <span>THECCODA <small style="font-size: 0.65rem; color: #f6ad8d; display: block;">ADMIN CMS &bull; EST. 1997</small></span>
@@ -150,10 +152,15 @@
     <!-- Admin Main Body -->
     <main class="admin-main">
       <div class="admin-topbar">
-        <div class="admin-breadcrumbs">
-          <span>THECCODA Operations Console (Makalama HQ, Bududa)</span>
-          <span>&bull;</span>
-          <strong id="activeViewTitle">Dashboard Overview</strong>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button type="button" class="admin-mobile-toggle" id="adminMobileToggle" aria-label="Open Sidebar Navigation">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <div class="admin-breadcrumbs">
+            <span class="admin-top-title">THECCODA CMS</span>
+            <span>&bull;</span>
+            <strong id="activeViewTitle">Dashboard Overview</strong>
+          </div>
         </div>
 
         <div class="admin-topbar-actions">
@@ -457,15 +464,47 @@
       const topLogoutBtn = document.getElementById('topLogoutBtn');
       const demoBtn = document.getElementById('fillDemoCredentialsBtn');
 
+      // Mobile Sidebar Controls
+      const mobileToggle = document.getElementById('adminMobileToggle');
+      const sidebar = document.querySelector('.admin-sidebar');
+      const sidebarBackdrop = document.getElementById('adminSidebarBackdrop');
+      const sidebarClose = document.getElementById('adminSidebarClose');
+
+      function setSidebarOpen(open) {
+        if (!sidebar) return;
+        if (open) {
+          sidebar.classList.add('active');
+          if (sidebarBackdrop) sidebarBackdrop.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        } else {
+          sidebar.classList.remove('active');
+          if (sidebarBackdrop) sidebarBackdrop.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      }
+
+      if (mobileToggle) mobileToggle.addEventListener('click', () => setSidebarOpen(true));
+      if (sidebarClose) sidebarClose.addEventListener('click', () => setSidebarOpen(false));
+      if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', () => setSidebarOpen(false));
+
+      // Close sidebar on link click on mobile
+      document.querySelectorAll('#adminNavList a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 992) setSidebarOpen(false);
+        });
+      });
+
       // Authentication State
       function checkAuth() {
         const isAuth = sessionStorage.getItem('theccoda_admin_auth') === 'true';
         if (isAuth) {
           loginGate.style.display = 'none';
-          appLayout.style.display = 'grid';
+          appLayout.classList.add('admin-authenticated');
+          appLayout.style.display = '';
           refreshAdminUI();
         } else {
           loginGate.style.display = 'flex';
+          appLayout.classList.remove('admin-authenticated');
           appLayout.style.display = 'none';
         }
       }

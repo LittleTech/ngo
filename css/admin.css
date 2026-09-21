@@ -9,6 +9,12 @@
   min-height: 100vh;
   background-color: #f6f5f0;
   color: var(--color-text);
+  width: 100%;
+  max-width: 100%;
+}
+
+.admin-layout.admin-authenticated {
+  display: grid;
 }
 
 /* Sidebar */
@@ -447,3 +453,207 @@
   padding-top: var(--space-4);
 }
 
+/* Mobile Toggle & Sidebar Backdrop */
+.admin-mobile-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  color: var(--color-text);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-sidebar-close {
+  display: none;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-sidebar-backdrop {
+  display: none;
+}
+
+/* =======================================
+   ADMIN RESPONSIVE BREAKPOINTS
+   ======================================= */
+@media (max-width: 992px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+
+  .admin-mobile-toggle {
+    display: flex;
+  }
+
+  .admin-sidebar-close {
+    display: flex;
+  }
+
+  .admin-sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(18, 33, 25, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 990;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .admin-sidebar-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 290px;
+    max-width: 85vw;
+    z-index: 1000;
+    transform: translateX(-100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    overflow-y: auto;
+  }
+
+  .admin-sidebar.active {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .admin-sidebar-header {
+    position: relative;
+    padding-right: 40px;
+  }
+
+  .admin-topbar {
+    padding: 10px 16px;
+    height: auto;
+    min-height: 60px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .admin-breadcrumbs {
+    font-size: 0.8rem;
+    gap: 6px;
+  }
+
+  .admin-content {
+    padding: 16px;
+  }
+
+  .admin-kpis {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .admin-kpi-card {
+    padding: 16px;
+  }
+
+  .admin-kpi-value {
+    font-size: 1.6rem;
+  }
+
+  .admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .admin-table {
+    min-width: 620px;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .admin-topbar-actions {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .admin-topbar-actions .btn {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
+  .admin-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+
+  .admin-card-header .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-table th, .admin-table td {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+
+  .admin-login-card {
+    margin: 16px;
+    padding: 24px 16px;
+  }
+
+  .admin-login-title {
+    font-size: 1.35rem;
+  }
+
+  .admin-login-subtitle {
+    font-size: 0.78rem;
+  }
+
+  .modal-dialog {
+    margin: 10px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .modal-header, .modal-body {
+    padding: 16px;
+  }
+}
