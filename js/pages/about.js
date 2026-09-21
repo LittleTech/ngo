@@ -27,8 +27,13 @@
         <div class="container">
           <div class="grid grid-2" style="gap: var(--space-6); margin-bottom: var(--space-10);">
             <div class="card card-hover" style="padding: var(--space-6); background: #ffffff; border-radius: var(--radius-lg); border-top: 5px solid var(--color-secondary);">
-              <span class="badge" style="background: #fef3c7; color: #92400e; font-weight: 700; text-transform: uppercase;">Our Vision</span>
-              <h3 style="color: var(--color-primary); margin-top: var(--space-3); margin-bottom: var(--space-2); font-weight: 800;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
+                <span class="badge" style="background: #fef3c7; color: #92400e; font-weight: 700; text-transform: uppercase;">Our Vision</span>
+                <div style="width: 48px; height: 38px; display: flex; align-items: center; justify-content: center;">
+                  <img src="images/icon-vision.png" alt="Vision Eye Icon" style="max-height: 34px; max-width: 46px; object-fit: contain;" />
+                </div>
+              </div>
+              <h3 style="color: var(--color-primary); margin-top: var(--space-2); margin-bottom: var(--space-2); font-weight: 800;">
                 A world enabling vulnerable individuals have access to better social services.
               </h3>
               <p style="font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.6;">
@@ -40,7 +45,7 @@
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
                 <span class="badge" style="background: #eff6ff; color: #1e40af; font-weight: 700; text-transform: uppercase;">Our Mission</span>
                 <div style="width: 48px; height: 38px; display: flex; align-items: center; justify-content: center;">
-                  <img src="images/icon-mission.png" alt="Mission Target Icon" style="max-height: 34px; max-width: 46px; object-fit: contain;" />
+                  <img src="images/icon-mission.png" alt="Mission Target with Darts Icon" style="max-height: 36px; max-width: 46px; object-fit: contain;" />
                 </div>
               </div>
               <h3 style="color: var(--color-primary); margin-top: var(--space-2); margin-bottom: var(--space-2); font-weight: 800;">

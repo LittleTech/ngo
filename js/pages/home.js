@@ -133,7 +133,12 @@
 
           <div class="grid grid-2" style="margin-bottom: var(--space-10);">
             <div class="card card-body" style="border-left: 4px solid var(--color-secondary);">
-              <span class="badge badge-secondary" style="margin-bottom: var(--space-3); width: fit-content;">Our Vision</span>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
+                <span class="badge badge-secondary" style="width: fit-content;">Our Vision</span>
+                <div style="width: 48px; height: 38px; display: flex; align-items: center; justify-content: center;">
+                  <img src="images/icon-vision.png" alt="Vision Eye Icon" style="max-height: 34px; max-width: 46px; object-fit: contain;" />
+                </div>
+              </div>
               <h3 style="font-size: var(--text-h3); margin-bottom: var(--space-3);">A world enabling vulnerable individuals have access to better social services.</h3>
               <p style="color: var(--color-text-muted); line-height: 1.65; margin: 0;">
                 Ensuring equitable access to trauma healing, safe haven care, nutrition, and restorative social welfare so that every vulnerable person can lead a fulfilled and dignified life.
@@ -144,7 +149,7 @@
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
                 <span class="badge badge-primary" style="width: fit-content;">Our Mission</span>
                 <div style="width: 48px; height: 38px; display: flex; align-items: center; justify-content: center;">
-                  <img src="images/icon-mission.png" alt="Mission Target Icon" style="max-height: 34px; max-width: 46px; object-fit: contain;" />
+                  <img src="images/icon-mission.png" alt="Mission Target with Darts Icon" style="max-height: 36px; max-width: 46px; object-fit: contain;" />
                 </div>
               </div>
               <h3 style="font-size: var(--text-h3); margin-bottom: var(--space-3);">Bring people together to build hope, peace and community.</h3>
