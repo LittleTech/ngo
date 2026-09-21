@@ -30,7 +30,7 @@
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
                 <span class="badge" style="background: #fef3c7; color: #92400e; font-weight: 700; text-transform: uppercase;">Our Vision</span>
                 <div style="width: 48px; height: 38px; display: flex; align-items: center; justify-content: center;">
-                  <img src="images/icon-vision.png" alt="Vision Eye Icon" style="max-height: 34px; max-width: 46px; object-fit: contain;" />
+                  <img src="images/vision.png" alt="Vision Eye Icon" style="max-height: 34px; max-width: 46px; object-fit: contain;" />
                 </div>
               </div>
               <h3 style="color: var(--color-primary); margin-top: var(--space-2); margin-bottom: var(--space-2); font-weight: 800;">
@@ -45,7 +45,7 @@
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
                 <span class="badge" style="background: #eff6ff; color: #1e40af; font-weight: 700; text-transform: uppercase;">Our Mission</span>
                 <div style="width: 48px; height: 38px; display: flex; align-items: center; justify-content: center;">
-                  <img src="images/icon-mission.png" alt="Mission Target with Darts Icon" style="max-height: 36px; max-width: 46px; object-fit: contain;" />
+                  <img src="images/mission.png" alt="Mission Target with Darts Icon" style="max-height: 36px; max-width: 46px; object-fit: contain;" />
                 </div>
               </div>
               <h3 style="color: var(--color-primary); margin-top: var(--space-2); margin-bottom: var(--space-2); font-weight: 800;">

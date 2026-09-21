@@ -136,7 +136,7 @@
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
                 <span class="badge badge-secondary" style="width: fit-content;">Our Vision</span>
                 <div style="width: 48px; height: 38px; display: flex; align-items: center; justify-content: center;">
-                  <img src="images/icon-vision.png" alt="Vision Eye Icon" style="max-height: 34px; max-width: 46px; object-fit: contain;" />
+                  <img src="images/vision.png" alt="Vision Eye Icon" style="max-height: 34px; max-width: 46px; object-fit: contain;" />
                 </div>
               </div>
               <h3 style="font-size: var(--text-h3); margin-bottom: var(--space-3);">A world enabling vulnerable individuals have access to better social services.</h3>
@@ -149,7 +149,7 @@
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
                 <span class="badge badge-primary" style="width: fit-content;">Our Mission</span>
                 <div style="width: 48px; height: 38px; display: flex; align-items: center; justify-content: center;">
-                  <img src="images/icon-mission.png" alt="Mission Target with Darts Icon" style="max-height: 36px; max-width: 46px; object-fit: contain;" />
+                  <img src="images/mission.png" alt="Mission Target with Darts Icon" style="max-height: 36px; max-width: 46px; object-fit: contain;" />
                 </div>
               </div>
               <h3 style="font-size: var(--text-h3); margin-bottom: var(--space-3);">Bring people together to build hope, peace and community.</h3>
