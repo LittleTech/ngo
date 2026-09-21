@@ -1,0 +1,5 @@
+# THECCODA Clean URL & Admin Portal Routing
+RewriteEngine On
+
+# Route domain.com/admin to admin/index.html
+RewriteRule ^admin/?$ admin/index.html [L,QSA]

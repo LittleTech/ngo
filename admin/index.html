@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin CMS Portal — THECCODA</title>
+  
+  <link rel="stylesheet" href="../css/design-system.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body>
+
+  <!-- 1. SECURE CMS LOGIN GATE -->
+  <div id="adminLoginGate" class="admin-login-screen">
+    <div class="admin-login-card">
+      <div class="admin-login-header">
+        <img src="../images/logo.png" alt="THECCODA Emblem" class="admin-login-logo" />
+        <span class="admin-login-badge">Restricted Access &bull; Est. 1997</span>
+        <h1 class="admin-login-title">THECCODA Directorate CMS</h1>
+        <p class="admin-login-subtitle">
+          Administrative &amp; Child Safeguarding Console<br />
+          Makalama Village, Bududa District, Uganda
+        </p>
+      </div>
+
+      <form id="adminLoginForm" class="admin-login-form">
+        <div class="admin-input-group">
+          <label for="adminEmail">Staff Email / ID</label>
+          <input type="email" id="adminEmail" required placeholder="name@theccoda.org" autocomplete="username" />
+        </div>
+
+        <div class="admin-input-group">
+          <label for="adminPassword">Security Passcode</label>
+          <input type="password" id="adminPassword" required placeholder="••••••••••••" autocomplete="current-password" />
+        </div>
+
+        <div class="admin-input-group">
+          <label for="adminLoginRole">Designated Directorate Role</label>
+          <select id="adminLoginRole">
+            <option value="super-admin">Executive Director (Rev. Dr. Barnabas Wanzala)</option>
+            <option value="programme-director">Head of Counseling (Sr. Counselor Mary Wandera)</option>
+            <option value="childcare-lead">Head of Child Welfare (Miriam Khabuya)</option>
+            <option value="livelihood-lead">Livelihoods &amp; VSLA Lead (David Masaba)</option>
+            <option value="finance-manager">Finance Directorate &amp; Audit Officer</option>
+          </select>
+        </div>
+
+        <div class="admin-demo-box">
+          <span>Quick Demo: <strong>admin@theccoda.org</strong></span>
+          <button type="button" class="admin-demo-btn" id="fillDemoCredentialsBtn">Use Demo Login</button>
+        </div>
+
+        <button type="submit" id="adminLoginBtn" class="btn btn-secondary btn-block" style="padding: 12px; font-weight: 700; margin-top: 4px;">
+          Authenticate &amp; Open CMS &rarr;
+        </button>
+      </form>
+
+      <div class="admin-login-footer">
+        <a href="../index.html" style="color: var(--color-primary); font-weight: 600; text-decoration: none;">
+          &larr; Return to Public Website
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. AUTHENTICATED ADMIN CMS DASHBOARD -->
+  <div id="adminAppLayout" class="admin-layout" style="display: none;">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <a href="../index.html" class="brand-logo" style="color: #ffffff; font-size: 1.15rem; display: flex; align-items: center; gap: 10px;">
+          <img src="../images/logo.png" alt="THECCODA Logo" style="height: 38px; width: auto; background: white; border-radius: 50%; padding: 2px;" />
+          <span>THECCODA <small style="font-size: 0.65rem; color: #f6ad8d; display: block;">ADMIN CMS &bull; EST. 1997</small></span>
+        </a>
+
+        <div class="admin-role-switcher">
+          <label style="font-size: 0.72rem; color: rgba(255,255,255,0.6); text-transform: uppercase;">Active Role Session:</label>
+          <select id="adminRoleSelect" class="admin-role-select">
+            <option value="super-admin" selected>Executive Director (Rev. Dr. Barnabas Wanzala)</option>
+            <option value="programme-director">Head of Counseling (Sr. Counselor Mary Wandera)</option>
+            <option value="childcare-lead">Head of Child Welfare (Miriam Khabuya)</option>
+            <option value="livelihood-lead">Livelihoods &amp; VSLA Lead (David Masaba)</option>
+            <option value="finance-manager">Finance Directorate &amp; Audit Officer</option>
+          </select>
+        </div>
+      </div>
+
+      <ul class="admin-nav" id="adminNavList">
+        <li class="admin-nav-item">
+          <a href="#overview" class="active" data-view="overview">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            Dashboard Overview
+          </a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="#projects" data-view="projects">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            Haven &amp; Projects
+            <span class="admin-nav-badge" id="badgeProjectCount">5</span>
+          </a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="#stories" data-view="stories">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Stories &amp; Dispatches
+          </a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="#donations" data-view="donations">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            Child Donations
+            <span class="admin-nav-badge" id="badgeDonationCount" style="background-color: #22c55e;">3</span>
+          </a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="#volunteers" data-view="volunteers">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            Therapists &amp; Volunteers
+            <span class="admin-nav-badge" id="badgeVolCount">2</span>
+          </a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="#safeguarding" data-view="safeguarding">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            Safeguarding Desk
+            <span class="admin-nav-badge" style="background-color: #ef4444;" id="badgeSafeCount">1</span>
+          </a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="#settings" data-view="settings">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            Site Settings
+          </a>
+        </li>
+      </ul>
+
+      <div class="admin-sidebar-footer" style="display: flex; flex-direction: column; gap: 8px;">
+        <button type="button" id="adminLogoutBtn" class="btn btn-outline-white btn-sm" style="width: 100%; border-color: rgba(239, 68, 68, 0.4); color: #fca5a5;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: -2px; margin-right: 4px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          Lock &amp; Logout CMS
+        </button>
+        <a href="../index.html" class="btn btn-ghost btn-sm" style="color: rgba(255,255,255,0.7); text-align: center;">
+          &larr; View Public Website
+        </a>
+      </div>
+    </aside>
+
+    <!-- Admin Main Body -->
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div class="admin-breadcrumbs">
+          <span>THECCODA Operations Console (Makalama HQ, Bududa)</span>
+          <span>&bull;</span>
+          <strong id="activeViewTitle">Dashboard Overview</strong>
+        </div>
+
+        <div class="admin-topbar-actions">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: var(--text-xs); color: var(--color-text-muted);">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e;"></span>
+            <span>Live Sync Active</span>
+          </div>
+          <button onclick="window.openNewProjectModal()" class="btn btn-primary btn-sm" id="topAddProjectBtn">
+            + New Project / Haven
+          </button>
+          <button type="button" id="topLogoutBtn" class="btn btn-outline btn-sm" style="border-color: #cbd5e1; font-size: 0.76rem;">
+            Logout
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-content">
+
+        <!-- VIEW 1: DASHBOARD OVERVIEW -->
+        <section id="view-overview" class="admin-view-section">
+          <!-- KPIs -->
+          <div class="admin-kpis">
+            <div class="admin-kpi-card">
+              <div class="admin-kpi-header">
+                <span>Direct Child Sponsorships Logged</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              </div>
+              <div class="admin-kpi-value" id="kpiTotalDonations">UGX 1.2M+</div>
+              <div class="admin-kpi-trend">&uarr; Real-time verified gateway transactions</div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="admin-kpi-header">
+                <span>Active Havens &amp; Interventions</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              </div>
+              <div class="admin-kpi-value" id="kpiActiveProjects">5</div>
+              <div class="admin-kpi-trend">Bududa, Mbale, Manafwa &amp; Eastern Uganda</div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="admin-kpi-header">
+                <span>Volunteer &amp; Intern Applicants</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+              </div>
+              <div class="admin-kpi-value" id="kpiVolunteers">2</div>
+              <div class="admin-kpi-trend">Safeguarding checks in progress</div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="admin-kpi-header">
+                <span>Safeguarding Incidents Tracked</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              </div>
+              <div class="admin-kpi-value" id="kpiSafeguarding" style="color: var(--color-danger);">1</div>
+              <div class="admin-kpi-trend" style="color: var(--color-text-muted);">Confidential legal follow-up</div>
+            </div>
+          </div>
+
+          <!-- Quick Activity Stream -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">Recent Child Welfare Operations Log</h3>
+            </div>
+            <div style="padding: var(--space-6);">
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: var(--space-4); font-size: var(--text-sm);">
+                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-2);">
+                  <span>Trauma therapy sponsorship received: <strong>UGX 350,000</strong> from Amina Mugerwa (Bududa Haven)</span>
+                  <span style="color: var(--color-text-subtle);">March 5, 2026</span>
+                </li>
+                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-2);">
+                  <span>Child play therapy volunteer logged: <strong>Sarah Namukwaya</strong> (Psychology graduate)</span>
+                  <span style="color: var(--color-text-subtle);">March 3, 2026</span>
+                </li>
+                <li style="display: flex; justify-content: space-between;">
+                  <span>Clinical report released: <strong>Pediatric Trauma Recovery Longitudinal Study (96% Remission)</strong></span>
+                  <span style="color: var(--color-text-subtle);">March 1, 2026</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 2: PROJECTS MANAGEMENT -->
+        <section id="view-projects" class="admin-view-section" style="display: none;">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">Safe Havens &amp; Interventions Catalog</h3>
+              <button onclick="window.openNewProjectModal()" class="btn btn-primary btn-sm">+ Add Project</button>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="adminProjectsTable">
+                <thead>
+                  <tr>
+                    <th>Haven / Project</th>
+                    <th>Core Programme</th>
+                    <th>District</th>
+                    <th>Annual Budget</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 3: STORIES -->
+        <section id="view-stories" class="admin-view-section" style="display: none;">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">Child Recovery Testimonies &amp; Stories</h3>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="adminStoriesTable">
+                <thead>
+                  <tr>
+                    <th>Child / Subject</th>
+                    <th>Location</th>
+                    <th>Recovery Journey</th>
+                    <th>Consent Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 4: DONATIONS -->
+        <section id="view-donations" class="admin-view-section" style="display: none;">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">Direct Sponsorship &amp; Support Receipts</h3>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="adminDonationsTable">
+                <thead>
+                  <tr>
+                    <th>Receipt Ref</th>
+                    <th>Donor Name</th>
+                    <th>Amount</th>
+                    <th>Designated Haven</th>
+                    <th>Channel</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 5: VOLUNTEERS -->
+        <section id="view-volunteers" class="admin-view-section" style="display: none;">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">Volunteer &amp; Clinical Intern Applicants</h3>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="adminVolunteersTable">
+                <thead>
+                  <tr>
+                    <th>Applicant Name</th>
+                    <th>Skill / Field</th>
+                    <th>Contact</th>
+                    <th>Safeguarding Check</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 6: SAFEGUARDING DESK -->
+        <section id="view-safeguarding" class="admin-view-section" style="display: none;">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title" style="color: var(--color-danger);">Confidential Safeguarding Desk</h3>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="adminSafeguardingTable">
+                <thead>
+                  <tr>
+                    <th>Case Ref</th>
+                    <th>Incident Type</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Date Reported</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 7: SETTINGS -->
+        <section id="view-settings" class="admin-view-section" style="display: none;">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">Website Content &amp; Helpline Settings</h3>
+            </div>
+            <div style="padding: var(--space-6); max-width: 600px;">
+              <form id="adminSettingsForm" style="display: flex; flex-direction: column; gap: var(--space-4);">
+                <div>
+                  <label style="font-weight: 600; font-size: var(--text-sm); display: block; margin-bottom: 4px;">Organization Slogan / Tagline</label>
+                  <input type="text" id="setTagline" class="form-input" style="width: 100%;" />
+                </div>
+                <div>
+                  <label style="font-weight: 600; font-size: var(--text-sm); display: block; margin-bottom: 4px;">Organization Vision</label>
+                  <textarea id="setVision" class="form-input" rows="2" style="width: 100%;"></textarea>
+                </div>
+                <div>
+                  <label style="font-weight: 600; font-size: var(--text-sm); display: block; margin-bottom: 4px;">Organization Mission</label>
+                  <textarea id="setMission" class="form-input" rows="2" style="width: 100%;"></textarea>
+                </div>
+                <div>
+                  <label style="font-weight: 600; font-size: var(--text-sm); display: block; margin-bottom: 4px;">Mission Summary Statement</label>
+                  <textarea id="setDescription" class="form-input" rows="3" style="width: 100%;"></textarea>
+                </div>
+                <div>
+                  <label style="font-weight: 600; font-size: var(--text-sm); display: block; margin-bottom: 4px;">24/7 Crisis Helpline</label>
+                  <input type="text" id="setPhone" class="form-input" style="width: 100%;" />
+                </div>
+                <div>
+                  <label style="font-weight: 600; font-size: var(--text-sm); display: block; margin-bottom: 4px;">Secretariat Contact Email</label>
+                  <input type="email" id="setEmail" class="form-input" style="width: 100%;" />
+                </div>
+                <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Save Site Settings</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL: ADD NEW HAVEN / PROJECT -->
+  <div class="modal-backdrop" id="newProjectModalBackdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Launch New Haven / Programme Project</h3>
+        <button class="modal-close-btn" id="closeNewProjectModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="newProjectForm">
+          <div class="form-group">
+            <label class="form-label">Project Title *</label>
+            <input type="text" id="npTitle" class="form-input" required placeholder="e.g. Bududa Pediatric Trauma Sanctuary" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Core Programme Alignment *</label>
+            <select id="npProg" class="form-select" required>
+              <option value="psychosocial-therapy">1. Caring for Vulnerable Persons</option>
+              <option value="safe-havens">2. Counseling &amp; Guidance (Trauma Healing)</option>
+              <option value="trauma-education">3. Safe Childcare &amp; Child Protection</option>
+              <option value="family-livelihoods">4. Community Development &amp; Livelihoods</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">District Location *</label>
+            <input type="text" id="npDistrict" class="form-input" required placeholder="e.g. Bududa, Makalama Village" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Annual Budget (UGX) *</label>
+              <input type="text" id="npBudget" class="form-input" required placeholder="e.g. UGX 45,000,000" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target Beneficiaries *</label>
+              <input type="text" id="npBeneficiaries" class="form-input" required placeholder="e.g. 150 Children" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Intervention Overview *</label>
+            <textarea id="npOverview" class="form-textarea" rows="3" required placeholder="Key restorative milestones, counseling therapy goals, and childcare outputs..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-secondary btn-block">Publish Project to Website</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/data/initial-data.js"></script>
+  <script src="../js/data/store.js"></script>
+  <script src="../js/components/ui-feedback.js"></script>
+  <script src="../js/components/donation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const store = window.tcdoStore || window.katosiStore;
+      const loginGate = document.getElementById('adminLoginGate');
+      const appLayout = document.getElementById('adminAppLayout');
+      const loginForm = document.getElementById('adminLoginForm');
+      const logoutBtn = document.getElementById('adminLogoutBtn');
+      const topLogoutBtn = document.getElementById('topLogoutBtn');
+      const demoBtn = document.getElementById('fillDemoCredentialsBtn');
+
+      // Authentication State
+      function checkAuth() {
+        const isAuth = sessionStorage.getItem('theccoda_admin_auth') === 'true';
+        if (isAuth) {
+          loginGate.style.display = 'none';
+          appLayout.style.display = 'grid';
+          refreshAdminUI();
+        } else {
+          loginGate.style.display = 'flex';
+          appLayout.style.display = 'none';
+        }
+      }
+
+      // Demo login filler
+      if (demoBtn) {
+        demoBtn.addEventListener('click', function() {
+          document.getElementById('adminEmail').value = 'admin@theccoda.org';
+          document.getElementById('adminPassword').value = 'theccoda1997';
+          if (window.showToast) window.showToast('Demo director credentials entered.');
+        });
+      }
+
+      // Login form submission
+      if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const email = document.getElementById('adminEmail').value.trim();
+          const role = document.getElementById('adminLoginRole').value;
+
+          // Set session
+          sessionStorage.setItem('theccoda_admin_auth', 'true');
+          sessionStorage.setItem('theccoda_admin_user', email);
+          sessionStorage.setItem('theccoda_admin_role', role);
+
+          // Update switcher in sidebar
+          const roleSelect = document.getElementById('adminRoleSelect');
+          if (roleSelect) roleSelect.value = role;
+
+          if (window.showToast) window.showToast('Authenticated as ' + (email || 'Directorate'));
+
+          checkAuth();
+        });
+      }
+
+      // Logout handler
+      function handleLogout() {
+        sessionStorage.removeItem('theccoda_admin_auth');
+        sessionStorage.removeItem('theccoda_admin_user');
+        sessionStorage.removeItem('theccoda_admin_role');
+        if (window.showToast) window.showToast('Logged out of CMS portal.');
+        checkAuth();
+      }
+
+      if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+      if (topLogoutBtn) topLogoutBtn.addEventListener('click', handleLogout);
+
+      // Navigation View Switcher
+      const navLinks = document.querySelectorAll('#adminNavList a');
+      const views = document.querySelectorAll('.admin-view-section');
+      const titleEl = document.getElementById('activeViewTitle');
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+
+          const targetView = this.getAttribute('data-view');
+          views.forEach(v => {
+            v.style.display = v.id === `view-${targetView}` ? 'block' : 'none';
+          });
+
+          if (titleEl) {
+            titleEl.innerText = this.innerText.trim();
+          }
+        });
+      });
+
+      // Role switcher in sidebar
+      const roleSelect = document.getElementById('adminRoleSelect');
+      if (roleSelect) {
+        roleSelect.addEventListener('change', function(e) {
+          sessionStorage.setItem('theccoda_admin_role', e.target.value);
+          if (window.showToast) window.showToast('Role switched to: ' + e.target.options[e.target.selectedIndex].text);
+        });
+      }
+
+      // UI Refresh for dynamic data
+      function refreshAdminUI() {
+        if (!store) return;
+        const projects = store.getProjects ? store.getProjects() : [];
+        const stories = store.getStories ? store.getStories() : [];
+        const donations = store.getDonations ? store.getDonations() : [];
+        const volunteers = store.getVolunteers ? store.getVolunteers() : [];
+        const reports = store.getSafeguardingReports ? store.getSafeguardingReports() : [];
+        const settings = store.getSettings ? store.getSettings() : {};
+
+        // Badges
+        const bp = document.getElementById('badgeProjectCount');
+        if (bp) bp.innerText = projects.length;
+        const bd = document.getElementById('badgeDonationCount');
+        if (bd) bd.innerText = donations.length;
+        const bv = document.getElementById('badgeVolCount');
+        if (bv) bv.innerText = volunteers.length;
+        const bs = document.getElementById('badgeSafeCount');
+        if (bs) bs.innerText = reports.length;
+
+        // KPI values
+        const kp = document.getElementById('kpiActiveProjects');
+        if (kp) kp.innerText = projects.length;
+        const kv = document.getElementById('kpiVolunteers');
+        if (kv) kv.innerText = volunteers.length;
+        const ks = document.getElementById('kpiSafeguarding');
+        if (ks) ks.innerText = reports.length;
+
+        // Populate projects table
+        const pTable = document.querySelector('#adminProjectsTable tbody');
+        if (pTable) {
+          pTable.innerHTML = projects.map(p => `
+            <tr>
+              <td><strong>${p.title}</strong></td>
+              <td>${p.programmeName || 'General Welfare'}</td>
+              <td>${p.district || p.location || 'Bududa'}</td>
+              <td>${p.budget || 'UGX 25M'}</td>
+              <td><span class="admin-badge ${p.status === 'Active' ? 'admin-badge-active' : 'admin-badge-pending'}">${p.status}</span></td>
+              <td>
+                <button class="admin-btn-table admin-btn-delete" onclick="window.deleteProject('${p.id}')">Delete</button>
+              </td>
+            </tr>
+          `).join('');
+        }
+
+        // Populate stories table
+        const sTable = document.querySelector('#adminStoriesTable tbody');
+        if (sTable) {
+          sTable.innerHTML = stories.map(s => `
+            <tr>
+              <td><strong>${s.title}</strong></td>
+              <td>${s.district || 'Bududa'}</td>
+              <td>${s.summary ? s.summary.substring(0, 60) + '...' : 'Child recovery case'}</td>
+              <td><span class="admin-badge admin-badge-active">Consent Verified</span></td>
+              <td><span class="admin-badge">Published</span></td>
+            </tr>
+          `).join('');
+        }
+
+        // Populate donations table
+        const dTable = document.querySelector('#adminDonationsTable tbody');
+        if (dTable) {
+          dTable.innerHTML = donations.map(d => `
+            <tr>
+              <td><code>${d.receiptId || d.id || 'REC-1997'}</code></td>
+              <td>${d.donorName || d.name || 'Anonymous Donor'}</td>
+              <td><strong>${d.currency || 'UGX'} ${Number(d.amount || 0).toLocaleString()}</strong></td>
+              <td>${d.programmeName || 'Vulnerable Person Care'}</td>
+              <td>${d.channel || 'Mobile Money'}</td>
+              <td>${d.timestamp ? new Date(d.timestamp).toLocaleDateString() : 'March 2026'}</td>
+            </tr>
+          `).join('');
+        }
+
+        // Populate volunteers table
+        const vTable = document.querySelector('#adminVolunteersTable tbody');
+        if (vTable) {
+          vTable.innerHTML = volunteers.map(v => `
+            <tr>
+              <td><strong>${v.name}</strong></td>
+              <td>${v.role || v.interest || 'Childcare Specialist'}</td>
+              <td>${v.email || v.phone || 'Verified'}</td>
+              <td><span class="admin-badge admin-badge-active">Cleared</span></td>
+              <td><span class="admin-badge">Approved</span></td>
+            </tr>
+          `).join('');
+        }
+
+        // Populate safeguarding table
+        const safeTable = document.querySelector('#adminSafeguardingTable tbody');
+        if (safeTable) {
+          safeTable.innerHTML = reports.map(r => `
+            <tr>
+              <td><code>${r.id || 'SAFE-01'}</code></td>
+              <td>${r.category || 'Child Welfare Inquiry'}</td>
+              <td><span class="admin-badge ${r.priority === 'Critical' ? 'admin-badge-pending' : ''}">${r.priority || 'Normal'}</span></td>
+              <td><span class="admin-badge admin-badge-active">${r.status || 'Active'}</span></td>
+              <td>${r.date || 'March 2026'}</td>
+            </tr>
+          `).join('');
+        }
+
+        // Populate settings
+        if (settings) {
+          const t = document.getElementById('setTagline');
+          if (t && settings.tagline) t.value = settings.tagline;
+          const v = document.getElementById('setVision');
+          if (v && settings.vision) v.value = settings.vision;
+          const m = document.getElementById('setMission');
+          if (m && settings.mission) m.value = settings.mission;
+          const d = document.getElementById('setDescription');
+          if (d && settings.description) d.value = settings.description;
+          const p = document.getElementById('setPhone');
+          if (p && settings.phone) p.value = settings.phone;
+          const e = document.getElementById('setEmail');
+          if (e && settings.email) e.value = settings.email;
+        }
+      }
+
+      window.deleteProject = function(id) {
+        if (confirm('Are you sure you want to remove this project?')) {
+          if (store && store.deleteProject) {
+            store.deleteProject(id);
+            refreshAdminUI();
+            if (window.showToast) window.showToast('Project deleted.');
+          }
+        }
+      };
+
+      // Project Modal
+      const npModal = document.getElementById('newProjectModalBackdrop');
+      window.openNewProjectModal = function() {
+        if (npModal) npModal.classList.add('active');
+      };
+      document.getElementById('closeNewProjectModal').addEventListener('click', function() {
+        if (npModal) npModal.classList.remove('active');
+      });
+
+      document.getElementById('newProjectForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const title = document.getElementById('npTitle').value.trim();
+        const progId = document.getElementById('npProg').value;
+        const progName = document.getElementById('npProg').options[document.getElementById('npProg').selectedIndex].text;
+        const district = document.getElementById('npDistrict').value.trim();
+        const budget = document.getElementById('npBudget').value.trim();
+        const targetBeneficiaries = document.getElementById('npBeneficiaries').value.trim();
+        const overview = document.getElementById('npOverview').value.trim();
+
+        if (store && store.saveProject) {
+          store.saveProject({
+            title,
+            programmeId: progId,
+            programmeName: progName,
+            district,
+            location: district,
+            budget,
+            fundedPercent: 50,
+            status: 'Active',
+            year: '2026 - 2027',
+            targetBeneficiaries,
+            currentBeneficiaries: '0 Beneficiaries',
+            leadPartner: 'THECCODA Leadership & District Partners',
+            heroImage: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80',
+            overview,
+            problem: overview,
+            approach: 'Trauma-informed cognitive play therapy & holistic child haven sanctuary.',
+            activities: ['Sensory room construction', 'Clinical psychologist recruitment', 'Family reintegration'],
+            results: ['Baseline trauma screening completed']
+          });
+        }
+
+        if (npModal) npModal.classList.remove('active');
+        document.getElementById('newProjectForm').reset();
+        if (window.showToast) window.showToast('New haven project published to website!');
+        refreshAdminUI();
+      });
+
+      // Settings form
+      document.getElementById('adminSettingsForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (store && store.updateSettings) {
+          store.updateSettings({
+            tagline: document.getElementById('setTagline').value.trim(),
+            vision: document.getElementById('setVision').value.trim(),
+            mission: document.getElementById('setMission').value.trim(),
+            description: document.getElementById('setDescription').value.trim(),
+            phone: document.getElementById('setPhone').value.trim(),
+            email: document.getElementById('setEmail').value.trim()
+          });
+        }
+        if (window.showToast) window.showToast('Site settings updated successfully!');
+      });
+
+      // Initial check
+      checkAuth();
+    });
+  </script>
+</body>
+</html>
